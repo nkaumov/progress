@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогресс ученика</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <div id="header-section" class="center-header">
+            <div class="header-bar"></div>
+            <h1 class="page-title">Прогресс ученика</h1>
+            <p class="student-name">Иван Иванов</p>
+            <p class="student-class">9 класс</p>
+        </div>
+        
+        <button id="prev-section" class="btn-floating btn-large waves-effect waves-light orange" style="display:none;"><i class="material-icons">arrow_upward</i></button>
+        
+        <div id="content-wrapper">
+            <div class="student-section" id="section-1">
+                <h2>Эмоциональный интеллект</h2>
+                <p>Вовлечён и проявляет инициативу</p>
+            </div>
+            <div class="student-section" id="section-2">
+                <h2>Лидерство</h2>
+                <p>На базовом уровне выполняет задания</p>
+            </div>
+            <div class="student-section" id="section-3">
+                <h2>Поведение</h2>
+                <p>Нет замечаний</p>
+            </div>
+            <div class="student-section" id="section-4">
+                <h2>Комментарии</h2>
+                <p>Очень активный и заинтересованный ученик.</p>
+            </div>
+        </div>
+        
+        <button id="next-section" class="btn-floating btn-large waves-effect waves-light orange"><i class="material-icons">arrow_downward</i></button>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
