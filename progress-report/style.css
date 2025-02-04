@@ -133,3 +133,9 @@ body, html {
     opacity: 1;
     transform: translateY(0);
 }
+
+.student-section canvas {
+    max-width: 300px;
+    margin: 20px auto;
+    display: block;
+}
