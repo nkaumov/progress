@@ -1,61 +1,123 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прогресс ученика</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Подключаем Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Прогресс ученика</title>
+  <!-- Materialize CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+  />
+  <!-- Основной CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Иконки -->
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <!-- Подключаем Chart.js (через CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="page-container">
-        <div id="header-section" class="center-header">
-            <div class="header-bar"></div>
-            <h1 class="page-title">Прогресс ученика</h1>
-            <p class="student-name">Иван Иванов</p>
-            <p class="student-class">9 класс</p>
+  <!-- Фиксированный хедер -->
+  <header id="header-section" class="center-header">
+    <h1 class="page-title">Прогресс ученика</h1>
+  </header>
+
+  <!-- Кнопка «вверх» -->
+  <button id="scroll-up-btn" class="scroll-btn scroll-up-btn">
+    <span class="material-icons">arrow_upward</span>
+  </button>
+  <!-- Кнопка «вниз» -->
+  <button id="scroll-down-btn" class="scroll-btn scroll-down-btn">
+    <span class="material-icons">arrow_downward</span>
+  </button>
+
+  <!-- Контейнер для snap-скролла -->
+  <div id="content-wrapper">
+    <!-- Секция 1 -->
+    <section class="student-section" id="section-1">
+      <h2>Эмоциональный интеллект</h2>
+      <p>Вовлечён и проявляет инициативу</p>
+      <canvas id="chartEI"></canvas>
+    </section>
+
+    <!-- Секция 2 -->
+    <section class="student-section" id="section-2">
+      <h2>Лидерство</h2>
+      <p>На базовом уровне выполняет задания</p>
+      <canvas id="chartLeadership"></canvas>
+    </section>
+
+    <!-- Секция 3 -->
+    <section class="student-section" id="section-3">
+      <h2>Поведение</h2>
+      <p>Нет замечаний</p>
+      <canvas id="chartBehavior"></canvas>
+    </section>
+
+    <!-- Секция 4 -->
+    <section class="student-section" id="section-4">
+      <h2>Комментарии</h2>
+
+      <!-- Версия для ПК (таблица) -->
+      <div class="comments-desktop">
+        <table class="striped responsive-table comments-table">
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Комментарий</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025-01-10</td>
+              <td>Активно участвует в обсуждениях, высокая вовлечённость.</td>
+            </tr>
+            <tr>
+              <td>2025-02-05</td>
+              <td>Отличное выполнение заданий, проявляет инициативу.</td>
+            </tr>
+            <tr>
+              <td>2025-03-15</td>
+              <td>Небольшие задержки в сдаче проекта, рекомендована работа над тайм-менеджментом.</td>
+            </tr>
+            <tr>
+              <td>2025-04-20</td>
+              <td>Интересуется дополнительными материалами, растёт лидерский потенциал.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Версия для мобильных (список) -->
+      <div class="comments-mobile">
+        <div class="comment-item">
+          <div class="comment-date">2025-01-10</div>
+          <div class="comment-text">Активно участвует в обсуждениях, высокая вовлечённость.</div>
         </div>
-        
-        <button id="prev-section" class="btn-floating btn-large waves-effect waves-light orange" style="display:none;">
-            <i class="material-icons">arrow_upward</i>
-        </button>
-        
-        <div id="content-wrapper">
-            <!-- Секция 1: Эмоциональный интеллект с диаграммой "радар" -->
-            <div class="student-section" id="section-1">
-                <h2>Эмоциональный интеллект</h2>
-                <p>Вовлечён и проявляет инициативу</p>
-                <canvas id="chartEI"></canvas>
-            </div>
-            <!-- Секция 2: Лидерство с бар-графиком -->
-            <div class="student-section" id="section-2">
-                <h2>Лидерство</h2>
-                <p>На базовом уровне выполняет задания</p>
-                <canvas id="chartLeadership"></canvas>
-            </div>
-            <!-- Секция 3: Поведение с круговой диаграммой -->
-            <div class="student-section" id="section-3">
-                <h2>Поведение</h2>
-                <p>Нет замечаний</p>
-                <canvas id="chartBehavior"></canvas>
-            </div>
-            <!-- Секция 4: Комментарии (текст) -->
-            <div class="student-section" id="section-4">
-                <h2>Комментарии</h2>
-                <p>Очень активный и заинтересованный ученик.</p>
-                <!-- Здесь можно добавить и другие инфографические элементы при необходимости -->
-            </div>
+        <div class="comment-item">
+          <div class="comment-date">2025-02-05</div>
+          <div class="comment-text">Отличное выполнение заданий, проявляет инициативу.</div>
         </div>
-        
-        <button id="next-section" class="btn-floating btn-large waves-effect waves-light orange">
-            <i class="material-icons">arrow_downward</i>
-        </button>
-    </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="script.js"></script>
+        <div class="comment-item">
+          <div class="comment-date">2025-03-15</div>
+          <div class="comment-text">Небольшие задержки в сдаче проекта, рекомендуется улучшить тайм-менеджмент.</div>
+        </div>
+        <div class="comment-item">
+          <div class="comment-date">2025-04-20</div>
+          <div class="comment-text">Интересуется дополнительными материалами, растёт лидерский потенциал.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Materialize JS -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+  ></script>
+  <!-- Основной скрипт -->
+  <script src="script.js"></script>
 </body>
 </html>

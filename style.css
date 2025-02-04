@@ -1,141 +1,154 @@
-body, html {
-    height: 100%;
+/* Сброс стилей, чтобы не было отступов */
+html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     font-family: 'Montserrat', Arial, sans-serif;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    text-align: center;
+    background-color: #fff;
+    color: #000;
+    height: 100%;
+    overflow: hidden; /* Основной скролл - внутри #content-wrapper */
+  }
+  h2 {
+    font-size: 2rem;
+    line-height: 110%;
+    margin: 2.3733333333rem 0 1.424rem 0;
 }
-
-.page-container {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-/* Заголовок сначала в центре, затем уменьшается и поднимается */
-.center-header {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    transition: all 0.5s ease-in-out;
-    width: 100%;
-}
-
-/* После перемещения заголовок уменьшается и поднимается ВЫШЕ */
-.center-header.moved-up {
-    top: 0px; /* Полностью поднимаем вверх */
-    transform: translate(-50%, 0);
-    font-size: 18px;
-    transition: all 0.5s ease-in-out;
-}
-
-/* Оранжевая полоса */
-.header-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0px;
-    background-color: rgb(33 37 41);
-    transition: height 0.5s ease-in-out;
-    z-index: -1;
-}
-
-.center-header.moved-up .header-bar {
-    height: 60px;
-}
-
-/* Центрируем заголовок внутри полосы */
-.page-title {
-    font-size: 32px;
-    display: block;
-    transition: font-size 0.5s ease-in-out, line-height 0.5s ease-in-out, top 0.5s ease-in-out;
-    line-height: 10px; /* Центрирование внутри полосы */
-    position: relative;
-}
-
-.center-header.moved-up .page-title {
-    font-size: 24px;
-    top: -15px; /* Поднимаем текст ВЫШЕ внутри полосы */
-}
-
-/* ФИО и класс исчезают и больше не занимают место */
-.student-name, .student-class {
-    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
-    max-height: 50px;
-}
-
-.center-header.moved-up .student-name,
-.center-header.moved-up .student-class {
-    opacity: 0;
-    max-height: 0;
-}
-
-/* Контейнеры выше по центру */
-#content-wrapper {
-    width: 100%;
-    height: calc(100vh - 120px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-/* Кнопки */
-.btn-floating {
+  /* Фиксированный хедер */
+  .center-header {
     position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: opacity 0.3s ease-in-out;
-}
-
-/* Кнопка вверх изначально скрыта, появится после первого нажатия */
-#prev-section {
-    top: 100px;
-    bottom: auto;
-    opacity: 0;
-    display: none;
-}
-
-/* Кнопка вниз */
-#next-section {
-    bottom: 20px;
-}
-
-/* Секции плавно появляются */
-.student-section {
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 75vh;
+    background-color: rgb(33, 37, 41);
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .page-title {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  @media (max-width: 600px) {
+    .page-title {
+      font-size: 18px;
+    }
+  }
+  
+  /* Кнопки «вверх» и «вниз» */
+  .scroll-btn {
+    position: fixed;
+    right: 20px;
+    z-index: 1000;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  .scroll-btn:hover {
+    background-color: #f2f2f2;
+  }
+  
+  /* Кнопка «вверх» - сверху */
+  .scroll-up-btn {
+    bottom: 70px; /* на 50px выше кнопки «вниз», плюс отступ */
+  }
+  
+  /* Кнопка «вниз» - снизу */
+  .scroll-down-btn {
+    bottom: 20px;
+  }
+  
+  /* Контейнер для snap-скролла */
+  #content-wrapper {
+    position: fixed;
+    top: 15px; /* Меньше отступ, чтобы первая секция уместилась */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 50px);
+    overflow-y: scroll;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+  }
+  
+  /* Каждая секция - полная высота (минус хедер) */
+  .student-section {
+    scroll-snap-align: start;
+    min-height: calc(100vh - 50px); /* Уменьшаем, чтобы помещалась на мобилке */
+    padding: 20px;
+    box-sizing: border-box;
+  
+    /* Анимация появления */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    transform: translateY(100%);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
-
-.student-section.active {
+  }
+  
+  /* Когда секция видна */
+  .student-section.active {
     opacity: 1;
     transform: translateY(0);
-}
-
-.student-section canvas {
-    max-width: 300px;
+  }
+  
+  /* Диаграммы */
+  .student-section canvas {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
     margin: 20px auto;
     display: block;
-}
+  }
+  
+  /* --- Комментарии --- */
+  
+  /* Настройки для ПК: показываем таблицу, прячем список */
+  .comments-desktop {
+    display: block;
+  }
+  .comments-mobile {
+    display: none;
+  }
+  
+  /* На мобильном – наоборот */
+  @media (max-width: 600px) {
+    .comments-desktop {
+      display: none;
+    }
+    .comments-mobile {
+      display: block;
+      width: 90%;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .comment-item {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      background-color: #fafafa;
+    }
+    .comment-date {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+  }
+  
