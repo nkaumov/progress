@@ -52,4 +52,79 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("touchmove", function (event) {
         event.preventDefault();
     }, { passive: false });
+
+    // Инициализация диаграмм после загрузки документа
+
+    // Диаграмма для Эмоционального интеллекта (радар)
+    var ctxEI = document.getElementById('chartEI').getContext('2d');
+    var chartEI = new Chart(ctxEI, {
+        type: 'radar',
+        data: {
+            labels: ['Вовлечённость', 'Инициатива', 'Эмпатия', 'Самосознание'],
+            datasets: [{
+                label: 'Эмоциональный интеллект',
+                data: [75, 85, 65, 90],
+                backgroundColor: 'rgba(248, 149, 64, 0.2)',
+                borderColor: 'rgba(248, 149, 64, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+
+    // Диаграмма для Лидерства (бар)
+    var ctxLeadership = document.getElementById('chartLeadership').getContext('2d');
+    var chartLeadership = new Chart(ctxLeadership, {
+        type: 'bar',
+        data: {
+            labels: ['Коммуникация', 'Принятие решений', 'Мотивация'],
+            datasets: [{
+                label: 'Лидерство',
+                data: [80, 70, 75],
+                backgroundColor: 'rgba(70, 130, 180, 0.2)',
+                borderColor: 'rgba(70, 130, 180, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+
+    // Диаграмма для Поведения (doughnut)
+    var ctxBehavior = document.getElementById('chartBehavior').getContext('2d');
+    var chartBehavior = new Chart(ctxBehavior, {
+        type: 'doughnut',
+        data: {
+            labels: ['Положительные', 'Отрицательные'],
+            datasets: [{
+                label: 'Поведение',
+                data: [95, 5],
+                backgroundColor: [
+                    'rgba(46, 204, 113, 0.6)',
+                    'rgba(231, 76, 60, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(46, 204, 113, 1)',
+                    'rgba(231, 76, 60, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
 });
